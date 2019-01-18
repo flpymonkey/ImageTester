@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
 
-    private JTextArea textArea;
+    private TextPanel textPanel;
     private JButton botton;
 
     public MainFrame(){
@@ -19,10 +21,17 @@ public class MainFrame extends JFrame {
     private void SetUp(){
         setLayout(new BorderLayout());
 
-        textArea = new JTextArea();
+        textPanel = new TextPanel();
         botton = new JButton("Click me I am a button!");
 
-        add(textArea, BorderLayout.CENTER);
+        // define action listener in place
+        botton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textPanel.appendText("Clicked!\n");
+            }
+        });
+
+        add(textPanel, BorderLayout.CENTER);
         add(botton, BorderLayout.SOUTH);
 
         setSize(600, 500);
