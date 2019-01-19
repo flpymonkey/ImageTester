@@ -7,6 +7,7 @@ public class MainFrame extends JFrame {
 
     private TextPanel textPanel;
     private JButton botton;
+    private Toolbar toolbar;
 
     public MainFrame(){
         super("Default");
@@ -23,14 +24,11 @@ public class MainFrame extends JFrame {
 
         textPanel = new TextPanel();
         botton = new JButton("Click me I am a button!");
+        toolbar = new Toolbar();
 
-        // define action listener in place
-        botton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textPanel.appendText("Clicked!\n");
-            }
-        });
+        toolbar.setTextPanel(textPanel);
 
+        add(toolbar, BorderLayout.NORTH);
         add(textPanel, BorderLayout.CENTER);
         add(botton, BorderLayout.SOUTH);
 
