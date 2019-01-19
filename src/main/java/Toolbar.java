@@ -6,7 +6,8 @@ import java.awt.event.ActionListener;
 public class Toolbar extends JPanel implements ActionListener {
     private JButton helloButton;
     private JButton goodbyeButton;
-    private TextPanel textPanel;
+    private StringListener textListener;
+
 
 
     public Toolbar(){
@@ -23,8 +24,8 @@ public class Toolbar extends JPanel implements ActionListener {
 
     }
 
-    public void setTextPanel(TextPanel panel){
-        this.textPanel = panel;
+    public void setStringListener(StringListener listener) {
+        this.textListener = listener;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -32,6 +33,8 @@ public class Toolbar extends JPanel implements ActionListener {
 
         JButton clicked = (JButton) e.getSource();
 
-        textPanel.appendText(clicked.getText());
+        if (textListener != null){
+            textListener.textEmitted(clicked.getText());
+        }
     }
 }

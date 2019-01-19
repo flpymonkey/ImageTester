@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 public class MainFrame extends JFrame {
 
     private TextPanel textPanel;
-    private JButton botton;
     private Toolbar toolbar;
 
     public MainFrame(){
@@ -23,14 +22,16 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
 
         textPanel = new TextPanel();
-        botton = new JButton("Click me I am a button!");
         toolbar = new Toolbar();
 
-        toolbar.setTextPanel(textPanel);
+        toolbar.setStringListener(new StringListener() {
+            public void textEmitted(String text) {
+                textPanel.appendText(text);
+            }
+        });
 
         add(toolbar, BorderLayout.NORTH);
         add(textPanel, BorderLayout.CENTER);
-        add(botton, BorderLayout.SOUTH);
 
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
