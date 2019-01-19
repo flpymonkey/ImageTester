@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 
-// TODO https://youtu.be/OxaSi3nSl3I?t=2018
-
 public class TextPanel extends JPanel {
     private JTextArea textArea;
 
