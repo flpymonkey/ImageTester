@@ -39,7 +39,7 @@ public class FormPanel extends JPanel {
         gc.weightx = 1;
         gc.weighty = 1;
         gc.fill = GridBagConstraints.NONE;
-        gc.anchor = GridBagConstraints.LINE_END;
+        //gc.anchor = GridBagConstraints.LINE_END;
         add(nameLable, gc);
 
         // retype to make clear what is happening
@@ -49,8 +49,8 @@ public class FormPanel extends JPanel {
         add(nameField, gc);
 
         // retype to make clear what is happening
-        gc.gridx = 1;
-        gc.gridy = 0;
+        gc.gridx = 0;
+        gc.gridy = 1;
         gc.anchor = GridBagConstraints.LINE_END;
         add(occupationLabel, gc);
 
@@ -61,8 +61,8 @@ public class FormPanel extends JPanel {
         add(occupationField, gc);
 
         // retype to make clear what is happening
-        gc.gridx = 2;
-        gc.gridy = 1;
+        gc.gridx = 1;
+        gc.gridy = 2;
         gc.anchor = GridBagConstraints.LINE_START;
         add(okButton, gc);
     }
