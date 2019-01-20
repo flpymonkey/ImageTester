@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// https://youtu.be/OxaSi3nSl3I?t=6583
+
 public class MainFrame extends JFrame {
 
     private TextPanel textPanel;
@@ -26,9 +28,18 @@ public class MainFrame extends JFrame {
         toolbar = new Toolbar();
         formPanel = new FormPanel();
 
+        // Action listeners for buttons
         toolbar.setStringListener(new StringListener() {
             public void textEmitted(String text) {
                 textPanel.appendText(text);
+            }
+        });
+        formPanel.setFormListener(new FormListener(){
+            public void formEventOccured(FormEvent e){
+                String name = e.getName();
+                String occupation = e.getOccupation();
+
+                textPanel.appendText(name + ": " + occupation + "\n");
             }
         });
 

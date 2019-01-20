@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FormPanel extends JPanel {
 
@@ -9,6 +11,7 @@ public class FormPanel extends JPanel {
     private JTextField nameField;
     private JTextField occupationField;
     private JButton okButton;
+    private FormListener formListener;
 
 
     public FormPanel(){
@@ -24,6 +27,21 @@ public class FormPanel extends JPanel {
         occupationField = new JTextField(10);
 
         okButton = new JButton("OK");
+
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String occupation = occupationField.getText();
+
+                // Need to pass info to mainframe by raising and event
+                // Swing handles events natively
+                FormEvent ev = new FormEvent(this, name, occupation);
+
+                if(formListener != null){
+                    formListener.formEventOccurred(ev);
+                }
+            }
+        });
 
         Border innerBorder = BorderFactory.createTitledBorder(("Add Person"));
         Border outerBorder = BorderFactory.createEmptyBorder(5,5,5,5);
@@ -76,5 +94,9 @@ public class FormPanel extends JPanel {
         gc.gridy = 2;
         gc.anchor = GridBagConstraints.FIRST_LINE_START;
         add(okButton, gc);
+    }
+
+    public void setFormListener(FormListener listener){
+        this.formListener = listener;
     }
 }
