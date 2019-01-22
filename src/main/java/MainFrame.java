@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-// https://youtu.be/OxaSi3nSl3I?t=6583
+// https://youtu.be/OxaSi3nSl3I?t=8660
 
 public class MainFrame extends JFrame {
 
@@ -39,8 +37,11 @@ public class MainFrame extends JFrame {
             public void formEventOccurred(FormEvent event) {
                 String name = event.getName();
                 String occupation = event.getOccupation();
+                int ageCat = event.getAgeCategory();
+                String empCat = event.getEmpCategory();
 
-                textPanel.appendText(name + ": " + occupation + "\n");
+                textPanel.appendText(name + ": " + occupation + ": " + ageCat +
+                        ": " + empCat + "\n");
             }
         }
         formPanel.setFormListener(new MyListener());
