@@ -12,6 +12,7 @@ public class FormPanel extends JPanel {
     private JTextField occupationField;
     private JButton okButton;
     private FormListener formListener;
+    private JList ageList;
 
 
     public FormPanel(){
@@ -26,12 +27,25 @@ public class FormPanel extends JPanel {
         nameField = new JTextField(10);
         occupationField = new JTextField(10);
 
+        // Need tp add items by adding things to JList model
+        ageList = new JList();
+        DefaultListModel ageModel = new DefaultListModel();
+        ageModel.addElement("Under 18");
+        ageModel.addElement("Under 18-65");
+        ageModel.addElement("Under 65+");
+        ageList.setModel(ageModel);
+        // Style the box
+        ageList.setPreferredSize(new Dimension(110, 66));
+        ageList.setBorder(BorderFactory.createEtchedBorder());
+        ageList.setSelectedIndex(1);
+
         okButton = new JButton("OK");
 
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
                 String occupation = occupationField.getText();
+                String ageCat = (String)ageList.getSelectedValue();
 
                 // Need to pass info to mainframe by raising and event
                 // Swing handles events natively
@@ -88,10 +102,19 @@ public class FormPanel extends JPanel {
 
         // Third Row
         gc.weightx = 1;
-        gc.weighty = 2.0;
+        gc.weighty = 0.2;
         // retype to make clear what is happening
         gc.gridx = 1;
         gc.gridy = 2;
+        gc.anchor = GridBagConstraints.FIRST_LINE_START;
+        add(ageList, gc);
+
+        // Fourth Row
+        gc.weightx = 1;
+        gc.weighty = 2.0;
+        // retype to make clear what is happening
+        gc.gridx = 1;
+        gc.gridy = 3;
         gc.anchor = GridBagConstraints.FIRST_LINE_START;
         add(okButton, gc);
     }
