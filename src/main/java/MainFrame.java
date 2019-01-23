@@ -11,20 +11,48 @@ public class MainFrame extends JFrame {
 
     public MainFrame(){
         super("Default");
-        SetUp();
+        setUpWindow();
     }
 
     public MainFrame(String title){
         super(title);
-        SetUp();
+        setUpWindow();
     }
 
-    private void SetUp(){
+    private JMenuBar setUpMenuBar(){
+        JMenuBar menuBar = new JMenuBar();
+
+        // Setup file menu
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem exportDataItem = new JMenuItem("Export Data...");
+        JMenuItem importDataItem = new JMenuItem("Import Data...");
+        fileMenu.addSeparator(); // =============
+        JMenuItem exitItem = new JMenuItem("Exit");
+        fileMenu.add(exportDataItem);
+        fileMenu.add(importDataItem);
+        fileMenu.add(exitItem);
+
+        // Setup window menu
+        JMenu windowMenu = new JMenu("Window");
+        JMenu showMenu = new JMenu("Show");
+        JMenuItem showFormItem = new JMenuItem("Person Form");
+        showMenu.add(showFormItem);
+        windowMenu.add(showMenu);
+
+        menuBar.add(fileMenu);
+        menuBar.add(windowMenu);
+
+        return menuBar;
+    }
+
+    private void setUpWindow(){
         setLayout(new BorderLayout());
 
         textPanel = new TextPanel();
         toolbar = new Toolbar();
         formPanel = new FormPanel();
+
+        setJMenuBar(setUpMenuBar());
 
         // Action listeners for buttons
         toolbar.setStringListener(new StringListener() {
