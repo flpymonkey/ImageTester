@@ -18,6 +18,11 @@ public class FormPanel extends JPanel {
     private JTextField taxField;
     private JLabel taxLabel;
 
+    // Mutually exclusive check boxes
+    private JRadioButton maleRadio;
+    private JRadioButton femaleRadio;
+    private ButtonGroup genderGroup;
+
     public FormPanel(){
         Dimension dim = getPreferredSize();
         dim.width = 250;
@@ -69,6 +74,20 @@ public class FormPanel extends JPanel {
             }
         });
 
+        // Radio button set up
+        maleRadio = new JRadioButton("male");
+        femaleRadio = new JRadioButton("female");
+        genderGroup = new ButtonGroup();
+
+        // set internal command string
+        maleRadio.setActionCommand("male");
+        maleRadio.setSelected(true);
+        femaleRadio.setActionCommand("female");
+
+        genderGroup.add(maleRadio);
+        genderGroup.add(femaleRadio);
+
+        // Submit button setup
         okButton = new JButton("OK");
 
         okButton.addActionListener(new ActionListener() {
@@ -77,12 +96,16 @@ public class FormPanel extends JPanel {
                 String occupation = occupationField.getText();
                 AgeCategory ageCat = (AgeCategory)ageList.getSelectedValue();
                 String empCat = (String) empCombo.getSelectedItem();
+                String taxId = taxField.getText();
+                boolean usCitizen = citizenCheck.isSelected();
+
+                String genderCommand = genderGroup.getSelection().getActionCommand();
 
                 System.out.println(empCat);
 
                 // Need to pass info to mainframe by raising and event
                 // Swing handles events natively
-                FormEvent ev = new FormEvent(this, name, occupation, ageCat.getId(), empCat, taxField.getText(), citizenCheck.isSelected());
+                FormEvent ev = new FormEvent(this, name, occupation, ageCat.getId(), empCat, taxId, usCitizen, genderCommand);
 
                 if(formListener != null){
                     formListener.formEventOccurred(ev);
@@ -98,6 +121,8 @@ public class FormPanel extends JPanel {
         layoutComponents();
     }
 
+    // Intellij Command which tells it to ignore duplicates
+    @SuppressWarnings("Duplicates")
     public void layoutComponents(){
         setLayout(new GridBagLayout());
 
@@ -195,7 +220,7 @@ public class FormPanel extends JPanel {
         gc.gridy++;
 
         gc.weightx = 1;
-        gc.weighty = 2.0;
+        gc.weighty = 0.5;
 
         gc.gridx = 0;
         gc.insets = new Insets(0,0,0,5);
@@ -209,6 +234,35 @@ public class FormPanel extends JPanel {
         add(empCombo, gc);
 
         // Seventh Row
+        gc.gridy++;
+
+        gc.weightx = 1;
+        gc.weighty = 0.05;
+
+        gc.gridx = 0;
+        gc.insets = new Insets(0,0,0,5);
+        gc.anchor = GridBagConstraints.LINE_END;
+        add(new JLabel("Gender: "), gc);
+
+        // retype to make clear what is happening
+        gc.gridx = 1;
+        gc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gc.insets = new Insets(0, 0,0,0);
+        add(maleRadio, gc);
+
+        // Eighth Row
+        gc.gridy++;
+
+        gc.weightx = 1;
+        gc.weighty = 0.05;
+
+        // retype to make clear what is happening
+        gc.gridx = 1;
+        gc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gc.insets = new Insets(0, 0,0,0);
+        add(femaleRadio, gc);
+
+        // Final Row (Submit button)
         gc.gridy++;
 
         gc.weightx = 1;

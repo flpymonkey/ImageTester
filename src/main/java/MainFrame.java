@@ -42,6 +42,8 @@ public class MainFrame extends JFrame {
 
                 textPanel.appendText(name + ": " + occupation + ": " + ageCat +
                         ": " + empCat + "\n");
+
+                System.out.println(event.getGender());
             }
         }
         formPanel.setFormListener(new MyListener());
